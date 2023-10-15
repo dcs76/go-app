@@ -394,6 +394,14 @@ func (h *Handler) makeAppJS() []byte {
 	h.Env["GOAPP_STATIC_RESOURCES_URL"] = h.Resources.Static()
 	h.Env["GOAPP_ROOT_PREFIX"] = h.Resources.Package()
 
+	// add all environment variables to h.Env
+	env := os.Environ()
+	for _, e := range env {
+		pair := strings.SplitN(e, "=", 2)
+		fmt.Println(pair)
+		h.Env[pair[0]] = pair[1]
+	}
+
 	for k, v := range h.Env {
 		if err := os.Setenv(k, v); err != nil {
 			Log(errors.New("setting app env variable failed").
