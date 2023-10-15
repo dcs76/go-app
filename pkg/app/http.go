@@ -398,7 +398,6 @@ func (h *Handler) makeAppJS() []byte {
 	env := os.Environ()
 	for _, e := range env {
 		pair := strings.SplitN(e, "=", 2)
-		fmt.Println(pair)
 		h.Env[pair[0]] = pair[1]
 	}
 
